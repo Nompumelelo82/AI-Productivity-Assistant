@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -11,6 +12,9 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { AppShell } from "@/components/AppShell";
+import { StoreProvider } from "@/lib/store";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -77,21 +81,31 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "FixMate AI — Book. Plan. Fix. Done." },
+      {
+        name: "description",
+        content:
+          "FixMate AI handles the admin behind your South African service business — AI quotes, job plans, scheduling and customer replies.",
+      },
+      { name: "author", content: "FixMate AI" },
+      { property: "og:title", content: "FixMate AI — Book. Plan. Fix. Done." },
+      {
+        property: "og:description",
+        content: "AI-powered admin for plumbing, electrical, painting and handyman businesses.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap",
+      },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
   }),
   shellComponent: RootShell,
@@ -119,8 +133,23 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <StoreProvider>
+        <Shell />
+        <Toaster position="top-right" richColors />
+      </StoreProvider>
+    </QueryClientProvider>
+  );
+}
+
+function Shell() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  if (pathname === "/landing") {
+    return <Outlet />;
+  }
+  return (
+    <AppShell>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
-    </QueryClientProvider>
+    </AppShell>
   );
 }
