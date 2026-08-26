@@ -228,7 +228,7 @@ function Dashboard() {
                     if (a.to === "/assistant") {
                       navigate({
                         to: "/assistant",
-                        search: { tool: a.tool === "analyze" || a.tool === "quote" ? "chat" : a.tool },
+                        search: { tool: a.tool },
                       });
                     } else {
                       navigate({ to: a.to, search: { from: a.tool } });
