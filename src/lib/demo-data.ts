@@ -8,6 +8,7 @@ import type {
   Job,
   Notification,
   Quote,
+  ServiceCategory,
 } from "./types";
 
 export const BUSINESS = {
