@@ -224,12 +224,16 @@ function Dashboard() {
                   key={a.label}
                   variant="outline"
                   className="justify-between border-ai/30 hover:border-ai"
-                  onClick={() =>
-                    navigate({
-                      to: a.to,
-                      search: a.to === "/assistant" ? { tool: a.tool } : { from: a.tool },
-                    })
-                  }
+                  onClick={() => {
+                    if (a.to === "/assistant") {
+                      navigate({
+                        to: "/assistant",
+                        search: { tool: a.tool === "analyze" || a.tool === "quote" ? "chat" : a.tool },
+                      });
+                    } else {
+                      navigate({ to: a.to, search: { from: a.tool } });
+                    }
+                  }}
                 >
                   <span className="truncate">{a.label}</span>
                   <ArrowRight className="h-4 w-4" />
