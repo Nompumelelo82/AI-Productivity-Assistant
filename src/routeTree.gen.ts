@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AssistantRouteImport } from './routes/assistant'
 import { Route as CustomersRouteImport } from './routes/customers'
+import { Route as HelpRouteImport } from './routes/help'
 import { Route as InvoicesRouteImport } from './routes/invoices'
 import { Route as JobsRouteImport } from './routes/jobs'
 import { Route as MessagesRouteImport } from './routes/messages'
@@ -34,6 +35,11 @@ const AssistantRoute = AssistantRouteImport.update({
 const CustomersRoute = CustomersRouteImport.update({
   id: '/customers',
   path: '/customers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpRoute = HelpRouteImport.update({
+  id: '/help',
+  path: '/help',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InvoicesRoute = InvoicesRouteImport.update({
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/assistant': typeof AssistantRoute
   '/customers': typeof CustomersRoute
+  '/help': typeof HelpRoute
   '/invoices': typeof InvoicesRoute
   '/jobs': typeof JobsRoute
   '/messages': typeof MessagesRoute
@@ -94,6 +101,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/assistant': typeof AssistantRoute
   '/customers': typeof CustomersRoute
+  '/help': typeof HelpRoute
   '/invoices': typeof InvoicesRoute
   '/jobs': typeof JobsRoute
   '/messages': typeof MessagesRoute
@@ -108,6 +116,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/assistant': typeof AssistantRoute
   '/customers': typeof CustomersRoute
+  '/help': typeof HelpRoute
   '/invoices': typeof InvoicesRoute
   '/jobs': typeof JobsRoute
   '/messages': typeof MessagesRoute
@@ -123,6 +132,7 @@ export interface FileRouteTypes {
     | '/'
     | '/assistant'
     | '/customers'
+    | '/help'
     | '/invoices'
     | '/jobs'
     | '/messages'
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/'
     | '/assistant'
     | '/customers'
+    | '/help'
     | '/invoices'
     | '/jobs'
     | '/messages'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/'
     | '/assistant'
     | '/customers'
+    | '/help'
     | '/invoices'
     | '/jobs'
     | '/messages'
@@ -163,6 +175,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AssistantRoute: typeof AssistantRoute
   CustomersRoute: typeof CustomersRoute
+  HelpRoute: typeof HelpRoute
   InvoicesRoute: typeof InvoicesRoute
   JobsRoute: typeof JobsRoute
   MessagesRoute: typeof MessagesRoute
@@ -194,6 +207,13 @@ declare module '@tanstack/react-router' {
       path: '/customers'
       fullPath: '/customers'
       preLoaderRoute: typeof CustomersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/help': {
+      id: '/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof HelpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/invoices': {
@@ -259,6 +279,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AssistantRoute: AssistantRoute,
   CustomersRoute: CustomersRoute,
+  HelpRoute: HelpRoute,
   InvoicesRoute: InvoicesRoute,
   JobsRoute: JobsRoute,
   MessagesRoute: MessagesRoute,
