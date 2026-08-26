@@ -48,12 +48,16 @@ const FILTERS = ["all", "New", "Quoted", "Scheduled", "In Progress", "Completed"
 type Filter = (typeof FILTERS)[number];
 
 export const Route = createFileRoute("/jobs")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    filter: (FILTERS as readonly string[]).includes(search.filter as string)
-      ? (search.filter as Filter)
-      : ("all" as Filter),
-    new: search.new === true || search.new === "true" ? true : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { filter: Filter; new?: boolean } => {
+    const filter = search["filter"];
+    const isNew = search["new"];
+    return {
+      filter: (FILTERS as readonly string[]).includes(String(filter))
+        ? (filter as Filter)
+        : "all",
+      ...(isNew === true || isNew === "true" ? { new: true } : {}),
+    };
+  },
   head: () => ({
     meta: [
       { title: "Jobs — FixMate AI" },
