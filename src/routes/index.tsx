@@ -44,12 +44,12 @@ export const Route = createFileRoute("/")({
 });
 
 const AI_ACTIONS = [
-  { label: "Analyse customer request", tool: "analyze", to: "/requests" as const },
-  { label: "Generate customer reply", tool: "reply", to: "/assistant" as const },
-  { label: "Create job plan", tool: "jobplan", to: "/assistant" as const },
-  { label: "Generate quote", tool: "quote", to: "/quotes" as const },
-  { label: "Plan my day", tool: "daily", to: "/assistant" as const },
-  { label: "Generate follow-up", tool: "followup", to: "/assistant" as const },
+  { label: "Analyse customer request", tool: "analyze" as const, to: "/requests" as const },
+  { label: "Generate customer reply", tool: "reply" as const, to: "/assistant" as const },
+  { label: "Create job plan", tool: "jobplan" as const, to: "/assistant" as const },
+  { label: "Generate quote", tool: "quote" as const, to: "/quotes" as const },
+  { label: "Plan my day", tool: "daily" as const, to: "/assistant" as const },
+  { label: "Generate follow-up", tool: "followup" as const, to: "/assistant" as const },
 ];
 
 function StatCard({
