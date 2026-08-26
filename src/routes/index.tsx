@@ -44,12 +44,12 @@ export const Route = createFileRoute("/")({
 });
 
 const AI_ACTIONS = [
-  { label: "Analyse customer request", tool: "analyze", to: "/requests" as const },
-  { label: "Generate customer reply", tool: "reply", to: "/assistant" as const },
-  { label: "Create job plan", tool: "jobplan", to: "/assistant" as const },
-  { label: "Generate quote", tool: "quote", to: "/quotes" as const },
-  { label: "Plan my day", tool: "daily", to: "/assistant" as const },
-  { label: "Generate follow-up", tool: "followup", to: "/assistant" as const },
+  { label: "Analyse customer request", tool: "analyze" as const, to: "/requests" as const },
+  { label: "Generate customer reply", tool: "reply" as const, to: "/assistant" as const },
+  { label: "Create job plan", tool: "jobplan" as const, to: "/assistant" as const },
+  { label: "Generate quote", tool: "quote" as const, to: "/quotes" as const },
+  { label: "Plan my day", tool: "daily" as const, to: "/assistant" as const },
+  { label: "Generate follow-up", tool: "followup" as const, to: "/assistant" as const },
 ];
 
 function StatCard({
@@ -224,12 +224,16 @@ function Dashboard() {
                   key={a.label}
                   variant="outline"
                   className="justify-between border-ai/30 hover:border-ai"
-                  onClick={() =>
-                    navigate({
-                      to: a.to,
-                      search: a.to === "/assistant" ? { tool: a.tool } : { from: a.tool },
-                    })
-                  }
+                  onClick={() => {
+                    if (a.to === "/assistant") {
+                      navigate({
+                        to: "/assistant",
+                        search: { tool: a.tool },
+                      });
+                    } else {
+                      navigate({ to: a.to, search: { from: a.tool } });
+                    }
+                  }}
                 >
                   <span className="truncate">{a.label}</span>
                   <ArrowRight className="h-4 w-4" />

@@ -19,9 +19,10 @@ import { analyzeRequest, nextVariant, think, SAFETY_NOTE, type RequestAnalysis }
 import { addDaysISO } from "@/lib/format";
 
 export const Route = createFileRoute("/requests")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    from: typeof search.from === "string" ? search.from : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { from?: string } => {
+    const from = search["from"];
+    return typeof from === "string" ? { from } : {};
+  },
   head: () => ({
     meta: [
       { title: "Customer Request Analyzer — FixMate AI" },

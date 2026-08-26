@@ -53,17 +53,28 @@ import { cn } from "@/lib/utils";
 
 type Tool = "chat" | "reply" | "jobplan" | "daily" | "followup";
 
+type AssistantSearch = {
+  tool: Tool;
+  request?: string;
+  customer?: string;
+  job?: string;
+};
+
 export const Route = createFileRoute("/assistant")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    tool: (["chat", "reply", "jobplan", "daily", "followup"] as const).includes(
-      search.tool as Tool,
-    )
-      ? (search.tool as Tool)
-      : ("chat" as Tool),
-    request: typeof search.request === "string" ? search.request : undefined,
-    customer: typeof search.customer === "string" ? search.customer : undefined,
-    job: typeof search.job === "string" ? search.job : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): AssistantSearch => {
+    const tool = search["tool"];
+    const request = search["request"];
+    const customer = search["customer"];
+    const job = search["job"];
+    return {
+      tool: (["chat", "reply", "jobplan", "daily", "followup"] as string[]).includes(String(tool))
+        ? (tool as Tool)
+        : "chat",
+      ...(typeof request === "string" ? { request } : {}),
+      ...(typeof customer === "string" ? { customer } : {}),
+      ...(typeof job === "string" ? { job } : {}),
+    };
+  },
   head: () => ({
     meta: [
       { title: "AI Assistant — FixMate AI" },

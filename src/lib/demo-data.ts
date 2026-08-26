@@ -8,6 +8,7 @@ import type {
   Job,
   Notification,
   Quote,
+  ServiceCategory,
 } from "./types";
 
 export const BUSINESS = {
@@ -19,6 +20,14 @@ export const BUSINESS = {
 };
 
 export const TECHNICIANS = ["Sipho Mabaso", "Mike Daniels", "Thandi Williams", "James Brown"];
+
+export const SERVICES: ServiceCategory[] = [
+  "Plumbing",
+  "Electrical",
+  "Painting",
+  "Handyman",
+  "General Repairs",
+];
 
 export const customers: Customer[] = [
   {
