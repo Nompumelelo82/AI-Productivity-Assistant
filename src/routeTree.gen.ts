@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AssistantRouteImport } from './routes/assistant'
 import { Route as JobsRouteImport } from './routes/jobs'
+import { Route as QuotesRouteImport } from './routes/quotes'
 import { Route as RequestsRouteImport } from './routes/requests'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +30,11 @@ const JobsRoute = JobsRouteImport.update({
   path: '/jobs',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuotesRoute = QuotesRouteImport.update({
+  id: '/quotes',
+  path: '/quotes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RequestsRoute = RequestsRouteImport.update({
   id: '/requests',
   path: '/requests',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/assistant': typeof AssistantRoute
   '/jobs': typeof JobsRoute
+  '/quotes': typeof QuotesRoute
   '/requests': typeof RequestsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/assistant': typeof AssistantRoute
   '/jobs': typeof JobsRoute
+  '/quotes': typeof QuotesRoute
   '/requests': typeof RequestsRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/assistant': typeof AssistantRoute
   '/jobs': typeof JobsRoute
+  '/quotes': typeof QuotesRoute
   '/requests': typeof RequestsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/assistant' | '/jobs' | '/requests'
+  fullPaths: '/' | '/assistant' | '/jobs' | '/quotes' | '/requests'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/assistant' | '/jobs' | '/requests'
-  id: '__root__' | '/' | '/assistant' | '/jobs' | '/requests'
+  to: '/' | '/assistant' | '/jobs' | '/quotes' | '/requests'
+  id: '__root__' | '/' | '/assistant' | '/jobs' | '/quotes' | '/requests'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AssistantRoute: typeof AssistantRoute
   JobsRoute: typeof JobsRoute
+  QuotesRoute: typeof QuotesRoute
   RequestsRoute: typeof RequestsRoute
 }
 
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JobsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quotes': {
+      id: '/quotes'
+      path: '/quotes'
+      fullPath: '/quotes'
+      preLoaderRoute: typeof QuotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/requests': {
       id: '/requests'
       path: '/requests'
@@ -106,6 +123,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AssistantRoute: AssistantRoute,
   JobsRoute: JobsRoute,
+  QuotesRoute: QuotesRoute,
   RequestsRoute: RequestsRoute,
 }
 export const routeTree = rootRouteImport
