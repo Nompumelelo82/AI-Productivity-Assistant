@@ -253,7 +253,7 @@ FixMate Plumbing & Repairs · 041 555 0142`,
                         ? "danger"
                         : q.status === "Sent"
                           ? "warning"
-                          : "neutral"
+                          : "muted"
                   }
                 >
                   {q.status}
