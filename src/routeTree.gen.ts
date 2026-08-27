@@ -16,6 +16,7 @@ import { Route as HelpRouteImport } from './routes/help'
 import { Route as InvoicesRouteImport } from './routes/invoices'
 import { Route as JobsRouteImport } from './routes/jobs'
 import { Route as MessagesRouteImport } from './routes/messages'
+import { Route as PresentationRouteImport } from './routes/presentation'
 import { Route as QuotesRouteImport } from './routes/quotes'
 import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as RequestsRouteImport } from './routes/requests'
@@ -57,6 +58,11 @@ const MessagesRoute = MessagesRouteImport.update({
   path: '/messages',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PresentationRoute = PresentationRouteImport.update({
+  id: '/presentation',
+  path: '/presentation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const QuotesRoute = QuotesRouteImport.update({
   id: '/quotes',
   path: '/quotes',
@@ -91,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/invoices': typeof InvoicesRoute
   '/jobs': typeof JobsRoute
   '/messages': typeof MessagesRoute
+  '/presentation': typeof PresentationRoute
   '/quotes': typeof QuotesRoute
   '/reports': typeof ReportsRoute
   '/requests': typeof RequestsRoute
@@ -105,6 +112,7 @@ export interface FileRoutesByTo {
   '/invoices': typeof InvoicesRoute
   '/jobs': typeof JobsRoute
   '/messages': typeof MessagesRoute
+  '/presentation': typeof PresentationRoute
   '/quotes': typeof QuotesRoute
   '/reports': typeof ReportsRoute
   '/requests': typeof RequestsRoute
@@ -120,6 +128,7 @@ export interface FileRoutesById {
   '/invoices': typeof InvoicesRoute
   '/jobs': typeof JobsRoute
   '/messages': typeof MessagesRoute
+  '/presentation': typeof PresentationRoute
   '/quotes': typeof QuotesRoute
   '/reports': typeof ReportsRoute
   '/requests': typeof RequestsRoute
@@ -136,6 +145,7 @@ export interface FileRouteTypes {
     | '/invoices'
     | '/jobs'
     | '/messages'
+    | '/presentation'
     | '/quotes'
     | '/reports'
     | '/requests'
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/invoices'
     | '/jobs'
     | '/messages'
+    | '/presentation'
     | '/quotes'
     | '/reports'
     | '/requests'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/invoices'
     | '/jobs'
     | '/messages'
+    | '/presentation'
     | '/quotes'
     | '/reports'
     | '/requests'
@@ -179,6 +191,7 @@ export interface RootRouteChildren {
   InvoicesRoute: typeof InvoicesRoute
   JobsRoute: typeof JobsRoute
   MessagesRoute: typeof MessagesRoute
+  PresentationRoute: typeof PresentationRoute
   QuotesRoute: typeof QuotesRoute
   ReportsRoute: typeof ReportsRoute
   RequestsRoute: typeof RequestsRoute
@@ -237,6 +250,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MessagesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/presentation': {
+      id: '/presentation'
+      path: '/presentation'
+      fullPath: '/presentation'
+      preLoaderRoute: typeof PresentationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/quotes': {
       id: '/quotes'
       path: '/quotes'
@@ -283,6 +303,7 @@ const rootRouteChildren: RootRouteChildren = {
   InvoicesRoute: InvoicesRoute,
   JobsRoute: JobsRoute,
   MessagesRoute: MessagesRoute,
+  PresentationRoute: PresentationRoute,
   QuotesRoute: QuotesRoute,
   ReportsRoute: ReportsRoute,
   RequestsRoute: RequestsRoute,
